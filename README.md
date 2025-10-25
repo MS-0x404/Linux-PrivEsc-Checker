@@ -8,7 +8,7 @@ This script is designed to be lightweight and easy to upload to a target machine
 
 Here is the script in action, identifying a SUID binary (`base64`) and other potential vectors.
 
-`![1_bN3zjoU7L6Ps54N9oecrqw](https://github.com/user-attachments/assets/b897ad23-a8a5-4443-acb0-0f64ff21a68f)`
+![1_bN3zjoU7L6Ps54N9oecrqw](https://github.com/user-attachments/assets/b897ad23-a8a5-4443-acb0-0f64ff21a68f)
 
 ## ✨ Features
 
